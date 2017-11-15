@@ -13,9 +13,6 @@ class Hello extends Component {
     this.handleRemove = this.handleRemove.bind(this);
   }
 
-  handleChange(e) {
-  this.setState({ input: e.target.value })
-  }
 
   handleAdd() {
     let a = this.state.input;
@@ -33,13 +30,8 @@ class Hello extends Component {
   handleRemove() {
     let a = this.state.input;
     let c = this.state.todo;
-<<<<<<< HEAD
     let index = c.indexOf(a);
     if (index > -1) {
-=======
-    let index = c.indexOf(b);
-    if (index > -1) {   
->>>>>>> c6b12200f1fbc13f23b9a0a5af76e9b2679073e0
       c.splice(index, 1);
       let newTodo = this.state.todo;
       this.setState({

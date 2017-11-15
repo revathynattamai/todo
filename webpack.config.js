@@ -7,9 +7,7 @@ var BUILD_DIR = path.resolve(__dirname, 'dist');
 var APP_DIR = path.resolve(__dirname, 'src');
 
 var config = {
-    entry: {
-        first:APP_DIR + '/app.js'
-        },
+    entry:  APP_DIR + '/dev_state.js',
     output: {
         path: BUILD_DIR,
         filename: '[name].js'
