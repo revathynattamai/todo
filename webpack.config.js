@@ -7,10 +7,12 @@ var BUILD_DIR = path.resolve(__dirname, 'dist');
 var APP_DIR = path.resolve(__dirname, 'src');
 
 var config = {
-    entry: APP_DIR + '/app.js',
+    entry: {
+        first:APP_DIR + '/app.js'
+        },
     output: {
         path: BUILD_DIR,
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     devtool: 'inline-source-map',
     module: {
