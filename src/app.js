@@ -22,7 +22,6 @@ class Hello extends Component {
     if (a.length == 0) {
       alert("Please enter a value");
     } else {
-      // this.state.todo.push(this.state.input);
       let newTodo = this.state.todo;
       newTodo.push(a);
       this.setState({
@@ -35,13 +34,12 @@ class Hello extends Component {
     let b = this.state.input;
     let c = this.state.todo;
     let index = c.indexOf(b);
-    if (index > -1) {
+    if (index > -1) {   
       c.splice(index, 1);
     }
     else {
       alert("Element not found");
     }
-    console.log(c);
   }
 
   render() {
