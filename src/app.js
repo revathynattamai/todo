@@ -1,40 +1,47 @@
 import { render } from 'react-dom'
 import React, { Component } from 'react'
 import { Provider } from 'react-redux';
-import { throws } from 'assert';
 
 class App extends Component {
-
   getTodos() {
+    let visibility = this.props.store.getState().visibility;
     const state_todos = this.props.store.getState().todos;
     return state_todos.map((todo, i) => {
-      return (<div key={i}>
-        <input type="checkbox" onClick={() => this.props.store.dispatch({ type: 'toggle', payload: i })} />
-        <span style={{ textDecoration: todo.done ? 'line-through' : 'none' }}> {todo.value}</span>
-      </div>);
+      switch (visibility) {
+        case false:
+          return (<div key={i}>
+            <input type="checkbox" onClick={() => this.props.store.dispatch({ type: 'toggle', payload: i })} />
+            <span style={{ textDecoration: todo.done ? 'line-through' : 'none' }}> {todo.value}</span>
+          </div>);
+        case 'all':
+          return (<div key={i}>
+            {todo.value}
+          </div>);
+        case 'active':
+          return !todo.done && (<div key={i}>
+            {todo.value}
+          </div>);
+        case 'completed':
+          return todo.done && (<div key={i}>
+            {todo.value}
+          </div>);
+        case 'none':
+          return null;
+      }
     });
   }
 
-  getAll() {
-    let visibility = this.props.store.getState().visibility;
-    const state_todos = this.props.store.getState().todos;
-    return visibility ? state_todos.map((todo, i) => {
-      return (
-        <div key={i}>
-          {todo.value}
-        </div>
-      );
-    }) : []
-  }
   render() {
     let input;
     return (
       <div>
         <input type="text" ref={node => { input = node }} />
         <button type="submit" onClick={() => this.props.store.dispatch({ type: 'add', payload: { value: input.value, done: false } })}>Add</button>
-        {this.getTodos()}
-        <a href='#' onClick={() => this.props.store.dispatch({ type: 'visit_toggle' })}>SHOWALL</a>
-        {this.getAll()}
+        {this.getTodos()} <br />
+        <a href='#' onClick={() => this.props.store.dispatch({ type: 'visibility', payload: 'all' })}>SHOWALL</a> <br />
+        <a href='#' onClick={() => this.props.store.dispatch({ type: 'visibility', payload: 'active' })}>SHOWACTIVE</a> <br />
+        <a href='#' onClick={() => this.props.store.dispatch({ type: 'visibility', payload: 'none' })}>SHOWNONE</a> <br />
+        <a href='#' onClick={() => this.props.store.dispatch({ type: 'visibility', payload: 'completed' })}>SHOWDONE</a> <br />
       </div>
     );
   }
